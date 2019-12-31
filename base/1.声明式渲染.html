@@ -1,0 +1,74 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>声明式渲染</title>
+</head>
+
+<body>
+    <div id="msg" v-bind:title="title">
+        {{ content }}
+        <p>这里的内容受下面的按钮控制</p>
+        <div v-if="show">
+            显示内容
+        </div>
+
+        <ul>
+            <li v-for="(animal,index) in animals">
+                {{main}}-{{index}}-{{animal}}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for="msg of messages">
+                {{msg.content}}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for="(value,key,index) of book">
+                {{index}}.{{key}}:{{value}}
+            </li>
+        </ul>
+
+        <button v-on:click="toggle"> 控制</button>
+        <p>{{ randomNum }}</p>
+        <input v-model="randomNum">
+        <button v-on:click="random"> 显示随机字符串</button>
+    </div>
+
+
+
+    <script>
+        var app = new Vue({
+            el: '#msg',
+            data: {
+                content: 'Data!',
+                title: '页面加载于 ' + new Date().toLocaleString(),
+                show: Math.random() > 0.5,
+                animals: ['Cat', 'Dog', 'Tiger', 'Lion'],
+                messages: [{ content: 'T1' }, { content: 'T2' }],
+                randomNum:'',
+                main:'动物',
+                book:{
+                    name:'百年孤独',
+                    author:'加西亚·马尔克斯'
+                }
+            },
+            methods: {
+                toggle(data, p,q) {
+                    console.log(data,p,q);
+                    this.show = !this.show;
+                },
+                random(){
+                    this.randomNum = Math.random()
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

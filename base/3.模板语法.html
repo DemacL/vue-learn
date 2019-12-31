@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>模板语法</title>
+</head>
+
+<body>
+
+    <div id='app'>
+        <p>{{message}}</p>
+        <p v-once>{{message}}</p>
+        <p>绑定原始字符串:{{htmlContent}}</p>
+        <p v-html="htmlContent"></p>
+        <div :id="ranId">{{message}}</div>
+        <button :disabled="isButtonDisabled">Button</button>
+        <p>{{ranId}}* {{ranId}}={{ranId*ranId}}</p>
+    </div>
+
+
+    <script>
+        const model = {
+            message: '生命中曾经有过的所有灿烂，终究都需要用寂寞来偿还。',
+            htmlContent: '<div>买下一张永久车票，登上一列永无终点的火车。</div>',
+            ranId: ~~(Math.random() * 10),
+            isButtonDisabled: true
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: model,
+
+        })
+    </script>
+</body>
+
+</html>

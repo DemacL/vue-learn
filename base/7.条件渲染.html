@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>条件渲染</title>
+</head>
+
+<style>
+</style>
+
+<body>
+
+    <div id='app'>
+        <div v-if="isBigger">{{ranNum}}>0.5</div>
+        <div v-else="isBigger">{{ranNum}}&lt;0.5</div>
+        <div v-show="isBigger">{{ranNum}}>0.5</div>
+    </div>
+
+
+    <script>
+        const model = {
+            ranNum: Math.random()
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: model,
+            computed: {
+                isBigger() {
+                    return this.ranNum > 0.5
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

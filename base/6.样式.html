@@ -1,0 +1,44 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>侦听属性</title>
+</head>
+
+<style>
+    .red{
+        color: red;
+    }
+    .text{
+        font-weight: bold;
+    }
+
+    .border{
+        border: solid 1px lightgray;
+    }
+</style>
+<body>
+
+    <div id='app'>
+        <p class="text" :class="{red: showRed,border: showBorder}">{{firstName}}</p>
+    </div>
+
+
+    <script>
+        const model = {
+            firstName:'DemacL',
+            showRed: false,
+            showBorder:true
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: model,
+        })
+    </script>
+</body>
+
+</html>

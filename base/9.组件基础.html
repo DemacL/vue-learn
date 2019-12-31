@@ -1,0 +1,99 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>组件基础</title>
+</head>
+
+<style>
+</style>
+
+
+
+<body>
+
+    <template id="subcpn">
+        <p>在第二个实例components属性里面注册的局部组件，只能在第二个Vue实例中用到，不能用在其他Vue实例中</p>
+    </template>
+
+
+    <template id="counter">
+        <div>
+            <div @click="add()">点击自增:({{counter}})</div>
+        </div>
+
+    </template>
+
+    <div id='app' style="background-color: lightpink;">
+        <p>第一个Vue实例，使用全局注册的组件</p>
+        <p>互不影响的两个相同组件</p>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+
+        <!-- <sub-cpn></sub-cpn>  -->
+        <!-- 这里不能使用局部注册的组件  因为不是在此Vue实例中注册的组件所有不可使用 -->
+        <!-- Unknown custom element: <sub-cpn> - did you register the component correctly? For recursive components, make sure to provide the "name" option. -->
+    </div>
+
+
+    <div id='app2' style="background-color: lemonchiffon;">
+        <p>另外一个Vue实例</p>
+        <p>第二个Vue实例，也使用全局注册的组件</p>
+        <button-counter> </button-counter>
+        <button-counter> </button-counter>
+        <sub-cpn></sub-cpn>
+    </div>
+
+
+    <script>
+        const model = {
+            num: 0
+        }
+
+
+        const counterModel = {
+            counter: 0
+        };
+
+        Vue.component('button-counter', {
+            template: '#counter',
+            data: function () {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                add() {
+                    this.counter++;
+                }
+            },
+
+
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: model,
+            methods: {
+                add(num, $event) {
+                    console.log(num, $event);
+                    this.num++
+                }
+            },
+        })
+
+        var app2 = new Vue({
+            el: '#app2',
+            components: {
+                'sub-cpn': {
+                    template: '#subcpn'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

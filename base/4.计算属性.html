@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>计算属性</title>
+</head>
+
+<body>
+
+    <div id='app'>
+        <p>{{firstName}}</p>
+        <p>{{lastName}}</p>
+        <p>{{name}}</p>
+        <p>{{getName()}}</p>
+        <p>{{now}}</p>
+
+    </div>
+
+
+    <script>
+        const model = {
+            firstName: 'Li',
+            lastName: 'zhicheng',
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: model,
+            methods: {
+                getName(){
+                    return `${this.firstName} ${this.lastName}`
+                }
+            },
+            computed: {
+                name() {
+                    return `${this.firstName} ${this.lastName}`
+                },
+                now() {
+                    return `${this.firstName} ${ Date.now()}`
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

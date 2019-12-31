@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>组件化</title>
+</head>
+<body>
+    
+    <div id='app'>
+        <ul>
+            <animal-item v-bind:animal="animal" v-for="(animal,index) in animals" :key=index>
+            </animal-item>
+        </ul> 
+    </div>
+  
+
+    <script>
+        Vue.component('animal-item',{
+            props:['animal'],
+            template:'<li><p>{{animal.name}}</p></li>'
+        })
+
+        const model = {
+                animals: [
+                    { id: 0, name: 'Cat' },
+                    { id: 1, name: 'Dog' },
+                    { id: 2, name: 'Lion' }
+                ]
+            }
+
+        var app = new Vue({
+            el: '#app',
+            data: model,
+            methods: {
+               
+            },
+            created() {
+                console.log('created hooks', this);
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>父传子</title>
+</head>
+
+<style>
+</style>
+
+
+
+<body>
+    <template id="list">
+        <div>
+            <h2>{{director}}</h2>
+            <movie-item v-for="(item, index) in movies" @select="handleSelect" :moivename="item" :key="index">
+            </movie-item>
+            <movie-item :moivename="'ces '"></movie-item>
+        </div>
+    </template>
+
+    <template id="movie-item">
+        <h3 style="margin: 4px 0;" :style="{'color': color}" @click="selectMovie(moivename)">{{moivename}}
+        </h3>
+        <!-- Component template should contain exactly one root element. If you are using v-if on multiple elements, use v-else-if to chain them instead. -->
+    </template>
+
+    <div id='app' :style="{backgroundColor: bgColor}">
+        <movie-list :movies="parentList" :director="title" @select-movie="select"></movie-list>
+    </div>
+
+    <script>
+
+        const movieList = {
+            template: '#list',
+            props: {
+                'movies': {
+                    type: Array,
+                    required: true,
+                },
+                'director': {
+                    type: String,
+                    required: true,
+                }
+            },
+            methods: {
+                handleSelect(movie) {
+                    console.log('接收到子组件movie-item发射出来的事件', movie);
+                    this.$emit('select-movie', movie);
+                }
+            },
+            components: {
+                'movie-item': {
+                    template: '#movie-item',
+                    data: function () {
+                        return {
+                            color: '#000',
+                        }
+                    },
+                    props: {
+                        moivename: {
+                            type: String,
+                            required: true, // Missing required prop: "moivename"
+                            default: '追随',
+                        }
+                    },
+                    methods: {
+                        selectMovie(movie) {
+                            this.color = '#' + Array.from({ length: 6 }, _ => (~~(Math.random() * 16)).toString(16)).join('')
+                            console.log('子组件点击', movie);
+                            this.$emit('select', movie);
+                        }
+                    },
+                }
+            }
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                parentList: ['Interstellar', 'Inception'],
+                title: 'Christopher Nolan',
+                bgColor: 'lightpink',
+            },
+            methods: {
+                select(movie) {
+                    console.log('接收到子组件movie-list发射出来的事件', movie);
+                    this.bgColor = '#' + Array.from({ length: 6 }, _ => (~~(Math.random() * 16)).toString(16)).join('');
+                }
+            },
+            components: {
+                'movie-list': movieList
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>
