@@ -1,0 +1,75 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件化开发</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <style>
+     
+  </style>
+</head>
+
+<body>
+
+  <template id="tmp1">
+    <div>
+      <h1>我是标题,接受参数内容:{{content}}</h1>
+      <h2>我是父内容{{name}}</h2>
+      <my-ele2 :type="'from parent'"></my-ele2>
+      <my-ele2 :type="type"></my-ele2>
+    </div>
+
+  </template>
+
+  <template id="tmp2">
+      <div>
+        <h1>我是子标题,接受父组件参数:{{type}}</h1>
+        <h2>我是子内容</h2>
+      </div>
+  
+    </template>
+
+  <div id="app">
+
+    <my-ele1 v-bind:content="type"></my-ele1>
+    <my-ele1></my-ele1>
+
+    <!-- <my-ele2></my-ele2> -->
+  </div>
+  <script>
+
+    Vue.component('my-ele1', {
+      template: '#tmp1',
+      props:['content'],
+      data:function(){
+        return { type:'from ele1',
+      name:'测试名字'} 
+      },
+      components:{
+        'my-ele2': {
+          template: '#tmp2',
+          props:['type']
+        }
+      },
+    })
+
+ 
+    const app = new Vue({
+      el: '#app',
+      data: {
+        type:'from app type'
+      },
+      methods: {
+
+      },
+      computed: {
+
+      },
+    })
+  </script>
+</body>
+
+</html>
