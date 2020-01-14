@@ -1,0 +1,57 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>插槽slot</title>
+</head>
+
+<style>
+</style>
+
+
+
+<body>
+    <template id="cpnid">
+        <div>
+            <div>下面可以放入插槽内容</div>
+            <slot></slot>
+        </div>
+
+    </template>
+
+    <div id='app'>
+        <cpn>
+            <span>这里是外部的插槽内容</span>
+            <button>你好</button>
+        </cpn>
+    </div>
+
+    <script>
+
+
+        const cpn = {
+            template: '#cpnid',
+        }
+
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+            },
+            components: {
+                'cpn': cpn
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>
