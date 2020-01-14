@@ -1,0 +1,142 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>购物车</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <style>
+    ul>li {
+      list-style: none;
+      display: flex;
+      padding: 10px 0;
+    }
+
+    .col1 {
+      width: 100px;
+    }
+
+    .col2 {
+      flex: 1
+    }
+
+    .col3 {
+      width: 100px;
+    }
+
+    .col4 {
+      width: 100px;
+    }
+
+    .col5 {
+      width: 100px;
+    }
+
+    .col6 {
+      width: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{text}}</h2>
+
+    <div v-if="books.length>0">
+      <ul>
+        <li class="header">
+          <span class="col1"></span>
+          <span class="col2">书籍名称</span>
+          <span class="col3">出版日期</span>
+          <span class="col4">价格</span>
+          <span class="col5">购买数量</span>
+          <span class="col6">操作</span>
+        </li>
+        <li v-for="(book, index) in books" :class="['row'+(index+1)]" :key="index">
+          <span class="col1">{{index+1}}</span>
+          <span class="col2">{{book.name}}</span>
+          <span class="col3">{{book.date}}</span>
+          <span class="col4">{{book.price}}</span>
+          <span class="col5">
+            <button @click="sub(index)" :disabled="book.num <= 1">-</button>{{book.num}}
+            <button @click="add(index)">+</button></span>
+          <span class="col6"><button @click="removeBook(index)">移除</button></span>
+        </li>
+      </ul>
+      <div>{{totalPrice}}</div>
+
+    </div>
+    <div v-else>
+      <span>暂无数据</span>
+    </div>
+
+  </div>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        text: '测试绑定',
+        books: [{
+          name: '算法导论',
+          date: '2006-09',
+          price: 85,
+          num: 1
+        }, {
+          name: 'UNIX编程艺术',
+          date: '2006-02',
+          price: 59,
+          num: 1
+        }, {
+          name: '编程珠玑',
+          date: '2008-10',
+          price: 39,
+          num: 1
+        }, {
+          name: '代码大全',
+          date: '2006-03',
+          price: 128,
+          num: 1
+        }]
+      },
+      methods: {
+        removeBook(index) {
+          // this.books = this.books.filter((_, i) => i !== index)//移除元素用splice 不要用过滤器
+          this.books.splice(index,1)
+        },
+        add(index) {
+          // const currentBook = this.books.filter((_, i) => i === index)[0];
+          // console.log(currentBook);
+          // const count = currentBook.num + 1;
+          // Vue.set(currentBook, 'num', count)
+          this.books[index].num++;
+        },
+        sub(index) {
+          // const currentBook = this.books.filter((_, i) => i === index)[0];
+          // console.log(currentBook);
+          // const count = currentBook.num - 1;
+          // Vue.set(currentBook, 'num', count)
+          this.books[index].num--;
+
+        },
+        getTotalPrice() {
+          return this.books.reduce((sum, book) => {
+            return sum + book.price
+          }, 0);
+        }
+      },
+      computed: {
+        totalPrice() {
+          // 改变了num ,但是计算总价的时候没有用到该变量，所以导致计算出来的总价永远都是按一个数量计算的
+          // 计算总价的时候应该把对应的数量字段用上，当数量字段改变的时候可以实时计算正确的总价
+          return this.books.reduce((sum, book) => {
+            return sum + book.price * book.num
+          }, 0);
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

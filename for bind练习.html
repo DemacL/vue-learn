@@ -8,14 +8,14 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <style>
-    
-        .active{
+        .active {
             color: red;
         }
     </style>
 </head>
 
 <body>
+
     <div id="app">
         <ul>
             <li :class="{active:index===selectedIndex}" @click="selectedItem(index)" v-for="(item, index) in movies"
