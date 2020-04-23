@@ -1,0 +1,79 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Props</title>
+</head>
+
+<body>
+
+  <div id='app'>
+    <hr>
+    <h2>父组件</h2>
+    <h2>父组件的属性{{nickName}}</h2>
+    <button @click="updateProps">在父组件更新父组件属性会联动子组件的属性</button>
+    <hr>
+    <child-item :age="age" :nick-name="nickName" :user-name="userName"></child-item>
+  </div>
+
+
+  <template id="tpl">
+    <div>
+      <h2>子组件</h2>
+      <h2>{{age}}</h2>
+      <h3>{{nickName}}</h3>
+      <h3>{{userName}}</h3>
+    
+      <h2>下面拷贝一份昵称，作为子组件的输入属性的拷贝，后面需要改变该数据即改变子组件自己的属性</h2>
+      <h3>{{copyPropsToMyself}}</h3>
+      <button @click="updatePropsFromChild">子组件按钮改变props不会回流影响父组件的属性，父到子的单向数据流</button>
+      <button @click="updateSelfPropsFromChild">改变子组件拷贝的输入属性</button>
+      <hr>
+    </div>
+  </template>
+
+  <script>
+    Vue.component('child-item', {
+      props: ['age', 'nickName', 'userName'],
+      template: '#tpl',
+      data: function () {
+        return {
+          copyPropsToMyself: this.nickName
+        }
+      },
+      methods: {
+        updatePropsFromChild() {
+          this.nickName = "Children" + Math.random()
+          // Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. 
+          // Instead, use a data or computed property based on the prop's value. Prop being mutated: "nickName"
+        },
+        updateSelfPropsFromChild() {
+          this.copyPropsToMyself = "Self Property Children" + Math.random()
+          // Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. 
+          // Instead, use a data or computed property based on the prop's value. Prop being mutated: "nickName"
+        }
+      },
+    })
+
+    const model = {
+      age: '18',
+      nickName: 'DemacL',
+      userName: 'lizc'
+    }
+
+    var app = new Vue({
+      el: '#app',
+      data: model,
+      methods: {
+        updateProps() {
+          this.nickName = "Let" + Math.random()
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

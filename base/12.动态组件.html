@@ -1,0 +1,88 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>动态组件</title>
+</head>
+
+<style>
+</style>
+
+
+
+<body>
+  <template id="cpnid1">
+    <div>
+      <div>1</div>
+
+    </div>
+
+  </template>
+
+  <template id="cpnid2">
+    <div>
+      <div>2</div>
+
+    </div>
+
+  </template>
+
+  <template id="cpnid3">
+    <div>
+      <div>3</div>
+    </div>
+
+  </template>
+
+  <div id='app'>
+    <button @click="setCurrentCpn(1)">tab1</button>   <button @click="setCurrentCpn(2)">tab2</button>   <button @click="setCurrentCpn(3)">tab3</button>
+    <component :is="currentCpn"></component>
+  </div>
+
+  <script>
+
+
+    const cpn1 = {
+      template: '#cpnid1',
+    }
+
+    const cpn2 = {
+      template: '#cpnid2',
+    }
+
+    const cpn3 = {
+      template: '#cpnid3',
+    }
+
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        currentCpn:  'cpn1' // 已注册组件的名字 一个组件的选项对象
+      },
+      methods: {
+        setCurrentCpn(index) {
+          this.currentCpn = [this.$options.components.cpn1, this.$options.components.cpn2, this.$options.components.cpn3][index-1];
+        }
+      },
+      computed: {
+        // currentCpn() {
+        //   console.log(this);
+        //   return  [this.$options.components.cpn1, this.$options.components.cpn2, this.$options.components.cpn3][(~~(Math.random() * 20)) % 3]
+        // }
+      },
+      components: {
+        'cpn1': cpn1,
+        'cpn2': cpn2,
+        'cpn3': cpn3,
+      }
+
+    })
+
+  </script>
+</body>
+
+</html>

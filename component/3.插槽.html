@@ -16,22 +16,25 @@
 <body>
     <template id="cpnid">
         <div>
-            <div>下面可以放入插槽内容</div>
-            <slot>后背内容，没有内容的话用这里的数据</slot>
+            <h2>section1</h2>
+            <slot name="p1">后背内容，没有内容的话用这里的数据</slot>
+            <h2>section2</h2>
+            <slot name="p2">后背内容，没有内容的话用这里的数据</slot>
+            <h2>section3</h2>
+            <slot name="p3">后背内容，没有内容的话用这里的数据</slot>
         </div>
 
     </template>
 
     <div id='app'>
         <cpn>
-            <span>这里是有传入的外部的插槽内容</span>
-            <button>你好1</button>
-            <button>你好2</button>
+            <h3 slot="p1">1</h3>
+            <h3 slot="p2">2</h3>
+            <!-- <h3 slot="p3">3</h3> -->
+            <template v-slot:p3><h3>3</h3></template>
         </cpn>
 
-        <cpn>
-             
-        </cpn>
+      
     </div>
 
     <script>
