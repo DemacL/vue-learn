@@ -1,0 +1,75 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>2.选项合并</title>
+</head>
+
+<style>
+</style>
+
+
+
+<body>
+  <div id="demo">
+    选项合并
+  </div>
+
+ 
+
+  <script>
+    var mixin = {
+      data: function () {
+        return {
+          message: 'hello',
+          foo: 'abc',
+          code: '10086'
+        }
+      },
+      created: function () {
+        console.log('混入对象的钩子被调用')
+      },
+      methods: {
+        fun1() {
+          console.log('fun1 from mixin')
+        },
+        fun2() {
+          console.log('fun2 from mixin')
+        }
+      },
+    }
+
+    const vm = new Vue({
+      mixins: [mixin],
+      data: function () {
+        return {
+          message: 'goodbye',
+          bar: 'def',
+          code: 99923,
+          uni: 'apikey'
+        }
+      },
+      created: function () {
+        console.log('组件钩子被调用')
+        console.log(this.$data)
+      },
+      methods: {
+        fun1() {
+          console.log('fun1 from self')
+        },
+        fun3() {
+          console.log('fun3 from self')
+        }
+      },
+    })
+  </script>
+
+  <style>
+
+  </style>
+</body>
+
+</html>

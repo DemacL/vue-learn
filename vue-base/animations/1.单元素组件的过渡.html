@@ -1,0 +1,52 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>1.单元素组件的过渡</title>
+</head>
+
+<style>
+</style>
+
+
+
+<body>
+  <div id="demo">
+    <button v-on:click="show = !show">
+      Toggle
+    </button>
+    <transition name="fadea">
+      <p v-if="show">hello</p>
+    </transition>
+  </div>
+
+  <script>
+    const app = new Vue({
+      el: '#demo',
+      data: {
+        show: true
+      }
+    })
+
+  </script>
+
+  <style>
+    .fadea-enter-active,
+    .fadea-leave-active {
+      transition: opacity .5s;
+    }
+
+    .fadea-enter,
+    .fadea-leave-to
+
+    /* .fade-leave-active below version 2.1.8 */
+      {
+      opacity: 0;
+    }
+  </style>
+</body>
+
+</html>

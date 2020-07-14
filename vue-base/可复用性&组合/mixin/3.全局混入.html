@@ -1,0 +1,47 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>3.全局混入</title>
+</head>
+
+<style>
+</style>
+
+
+
+<body>
+  <div id="demo">
+    全局混入
+  </div>
+
+  <script>
+    // 为自定义的选项 'myOption' 注入一个处理器。
+    Vue.mixin({
+      created: function () {
+        var myOption = this.$options.myOption
+        if (myOption) {
+          console.log(myOption)
+        }
+      }
+    })
+
+    new Vue({
+      myOption: 'hello1!'
+    })
+
+    new Vue({
+      myOption: 'hello2!'
+    })
+// => "hello!"
+  </script>
+
+  <style>
+
+  </style>
+</body>
+
+</html>

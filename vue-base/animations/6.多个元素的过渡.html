@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>6.多个元素的过渡</title>
+</head>
+
+<style>
+</style>
+
+
+
+<body>
+  <div id="example-1">
+    <transition>
+      <div v-if="items.length > 0">
+        222
+      </div>
+      <p v-else>Sorry, no items found.</p>
+    </transition>
+  </div>
+
+  <script>
+    const app = new Vue({
+      el: '#example-1',
+      data: {
+        items: []
+      }
+    })
+
+  </script>
+
+  <style>
+    
+  </style>
+</body>
+
+</html>
